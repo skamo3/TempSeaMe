@@ -66,7 +66,7 @@ SEA:ME 2nd Project
 |GPIO25[22]|INT|
 |GPIO8[24]|CS|
 |GPIO10[19]|SI|
-|GPIO9[21]|SO|
+|GPIO9[21]|S0|
 |GPIO11[23]|SCK|
 |5V|VCC|
 
@@ -74,3 +74,39 @@ SEA:ME 2nd Project
 
 - VCC & 5V
   - You must find another 5Voltage socket in Pi Racer. Raspberry Pi 5V is already used for connecting Raspberry Pi & Pi Racer.
+
+### Arduino Nano <-> MCP2515
+
+<p align="center"> 
+
+| | |
+|:---:|:---:|
+|<img width="400" alt="image" src="https://user-images.githubusercontent.com/54701846/191307758-886c282e-a346-4b50-8235-5cb4d0bf654c.png">|<img width="271" alt="image" src="https://user-images.githubusercontent.com/54701846/191308606-7ece9871-ea46-4e8d-ad3f-02b719a89957.png">  |
+
+
+| Arduino Nano | MCP2515 |
+|:---:|:---:|
+|D2|INT|
+|D13|SCK|
+|D11|SI|
+|D12|S0|
+|D10|CS|
+|GND|GND|
+|5V|VCC|  
+
+- Use Breadboard to connect Arduino and MCP2515
+- Later, Sensors can be connected to Arduino with Breadboard
+
+</p>
+
+### MCP2515 <-> MCP2515
+
+<p align="center"> 
+
+| MCP2515 | MCP2515 |
+|:---:|:---:|
+|CAN_H|CAN_H|
+|CAN_L|CAN_L|
+
+</p>
+
