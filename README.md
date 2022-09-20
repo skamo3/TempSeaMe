@@ -22,6 +22,7 @@ SEA:ME 2nd Project
 	- Use ID based on message priority. Use them to distinguish messages
 	- Multiple messages come in at the same time, carry out the priority ID message 
 > ECU
+>	- Electronic Control Unit
 >	- Electronic control device used in a car
 
 ## What is Arduino?
@@ -30,8 +31,46 @@ SEA:ME 2nd Project
 	- C language (or C++) and Arduino IDE enable simple coding
 	- Consists of Regulator, Circuit Element, GPIO
 	- Peripherals allow direct control of external devices
+	- [More Information of Arduino](https://www.arduino.cc/en/Guide/Introduction)
+> GPIO 
+>	- General Purpose Input/Output
+>	- Uncommitted digital signal pin on an integrated circuit or electronic circuit board which may be used as an input or output, or both, and is controllable by software.
 ## What is Raspberry Pi?
 - Micro Processor
 	- Similar to Arduino, but called Processor because it can have various OSs
 	- Unlike Arduino, there is no peripheral device and controls the device using an internal transistor
 	- Powerful performance in computational processing, which is useful for complex computational processing such as video and graphics
+	- [Raspberry Pi official document](https://www.raspberrypi.com/documentation/computers/)
+
+# Prepare the materials
+
+| | | |
+|---|---|---|
+|Pi RacerPro & Raspberry Pi| Can Module MCP 2515 * 2| Arduino Nano(HIMALAYA|
+|<img alt="image" src="https://user-images.githubusercontent.com/54701846/191284407-329db1ba-07ec-481c-b7d6-d8af2a20b35b.png"> | <img alt="image" src="https://user-images.githubusercontent.com/54701846/191287231-bbadd415-da5a-494f-8b1c-3a7ac9cfa985.png"> | <img alt="image" src="https://user-images.githubusercontent.com/54701846/191292895-c7e3e488-040f-4f88-bdb7-685f208b0c35.png">|
+
+- Basically, These materials can make communication. After connecting, you can connect Arduino with other modules(speed sensor, temperature sensor, etc) using Breadboard.
+
+# Make communication
+## Blueprint
+> Raspberry Pi <-> MCP2515 <-> MCP2515 <-> Arduino Nano <-> other modules
+
+### Raspberry Pi <-> MCP2515
+
+<p align="center">
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/54701846/191302225-40637996-c62b-4cc0-9e74-a9ba7a33abb0.png">  
+
+| Raspberry Pi | MCP2515 |
+|:---:|:---:|
+|GND[20]|GND|
+|GPIO25[22]|INT|
+|GPIO8[24]|CS|
+|GPIO10[19]|SI|
+|GPIO9[21]|SO|
+|GPIO11[23]|SCK|
+|5V|VCC|
+
+</p>
+
+- VCC & 5V
+  - You must find another 5Voltage socket in Pi Racer. Raspberry Pi 5V is already used for connecting Raspberry Pi & Pi Racer.
