@@ -28,6 +28,12 @@ void loop()
   Serial.println("In loop");
   CAN.sendMsgBuf(0x43, 0, 8, stmp);
 
+  double ret = analogRead(4);
+  stmp[0] = ret;
+
+  Serial.print("analog input : ");
+  Serial.println(ret);
+
   if (digitalRead(3) == true)
   {
     Serial.println("Write HIGH to pin 2");
