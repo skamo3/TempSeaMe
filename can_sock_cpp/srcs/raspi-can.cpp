@@ -35,13 +35,25 @@ int main()
 		return can_fd;
 	
 	struct can_frame frame;
-	int rd_byte = read(can_fd, &frame, sizeof(frame));
-	if (rd_byte < 0)
-		return PrintErrorText("Failed to recieve CAN frame", rd_byte);
-	else if (rd_byte < (int)sizeof(struct can_frame))
-		return PrintErrorText("Incomplete CAN frame is received", rd_byte, rd_byte);
-	else if (frame.can_dlc > CAN_FRAME_MAX_LEN)
-		return PrintErrorText("Invalid dlc", -1, frame.can_dlc);
+	while (1)
+	{
+		int rd_byte = read(can_fd, &frame, sizeof(frame));
+		if (rd_byte < 0)
+			return PrintErrorText("Failed to recieve CAN frame", rd_byte);
+		else if (rd_byte < (int)sizeof(struct can_frame))
+			return PrintErrorText("Incomplete CAN frame is received", rd_byte, rd_byte);
+		else if (frame.can_dlc > CAN_FRAME_MAX_LEN)
+			return PrintErrorText("Invalid dlc", -1, frame.can_dlc);
+
+		
+		printf("0x%03X [%d] ",frame.can_id, frame.can_dlc);
+
+		for (int i = 0; i < frame.can_dlc; i++)
+			printf("%02X ",frame.data[i]);
+		printf("%f\n", static_cast<float>(frame.data[0]));
+		printf("\n");
+		
+	}
 
 	return 0;
 }
