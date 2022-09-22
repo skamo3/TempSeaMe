@@ -14,7 +14,7 @@ unsigned long previousMicros, usInterval, calc;
 void setup()
 {
   counter = 0;
-  interval = 5;
+  interval = 2;
   wheel = 20;
 
   calc = 60 / interval;
@@ -48,16 +48,23 @@ void count()
   }
 }
 
-unsigned char stmp[8] = {1, 2, 3, 4, 5, 6, 7, 8};
+unsigned char buf[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 void output()
 {
   
   Timer1.detachInterrupt();
-  Serial.print("Drehzahl pro Minute: ");
   int speed = ((counter)*calc) / wheel;
   
-  Serial.println(speed);
+  Serial.print("Speed : ");
+  Serial.print(speed);
+  Serial.print(" | ");
+  Serial.print(speed / 256);
+  Serial.print(" | ");
+  Serial.println(speed % 256);
+  buf[0] = speed / 256;
+  buf[1] = speed % 256;
+  CAN.sendMsgBuf(0x43, 0, 8, buf);
   counter = 0;
   Timer1.attachInterrupt(output); 
 }
