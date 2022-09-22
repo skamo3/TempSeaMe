@@ -27,7 +27,14 @@ int InitSocket(const char *ifname)
 	return sock_fd;
 }
 
-
+// struct can_frame {
+//     canid_t can_id;  /* 32 bit CAN_ID + EFF/RTR/ERR flags */
+//     __u8    can_dlc; /* frame payload length in byte (0 .. 8) */
+//     __u8    __pad;   /* padding */
+//     __u8    __res0;  /* reserved / padding */
+//     __u8    __res1;  /* reserved / padding */
+//     __u8    data[8] __attribute__((aligned(8)));
+// };
 int main()
 {
 	int can_fd = InitSocket("can0");
@@ -42,7 +49,7 @@ int main()
 			return PrintErrorText("Failed to recieve CAN frame", rd_byte);
 		else if (rd_byte < (int)sizeof(struct can_frame))
 			return PrintErrorText("Incomplete CAN frame is received", rd_byte, rd_byte);
-		else if (frame.can_dlc > CAN_FRAME_MAX_LEN)
+		else if (frame.can_dlc > CAN_MAX_DLEN)
 			return PrintErrorText("Invalid dlc", -1, frame.can_dlc);
 
 		
@@ -50,8 +57,8 @@ int main()
 
 		for (int i = 0; i < frame.can_dlc; i++)
 			printf("%02X ",frame.data[i]);
-		printf("%f\n", static_cast<float>(frame.data[0]));
 		printf("\n");
+		printf("RPM : %d : %d \n", frame.data[0], frame.data[1]);
 		
 	}
 
