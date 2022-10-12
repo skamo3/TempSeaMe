@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/components">
+        <file>Background.qml</file>
+        <file>DataArea.qml</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
